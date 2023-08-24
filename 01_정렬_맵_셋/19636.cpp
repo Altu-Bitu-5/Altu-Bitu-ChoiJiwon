@@ -1,52 +1,39 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 int main() {
   int w0, i0, t, d, i, a;
   cin >> w0 >> i0 >> t >> d >> i >> a;
 
-  int weight = w0;
-  int basic = i0;
+  int weight1 = w0, weight2=w0;
+  int basic1 = i0, basic2=i0;
 
-  for (int date = 0; date < d; date++) {
-    int usage = i0 + a;
-    weight += (i - usage);
+  while(d--) {
+    int usage1 = basic1 + a;
+    int usage2=basic2+a;
+    weight1 += (i - usage1);
+    weight2+=(i - usage2);
 
-    if (weight <= 0) {
-      cout << "Danger Diet" << endl;
-      return 0;
-    }
-    if ((i - usage) > t) {
-      basic += (i - usage) / 2;
-    }
+    if (abs((i - usage2)) > t) {
+      basic2 += floor((i - usage2) / 2.0);
+    }    
   }
 
-  int weightAfter = w0;
-  int basicAfter = i0;
-
-  for (int date = 0; date < d; date++) {
-    int usage = i + a;
-    weightAfter += (i - usage);
-
-    if (weightAfter <= 0) {
-      cout << "Danger Diet" << endl;
-      return 0;
+  if (weight1 <= 0) {
+      cout << "Danger Diet\n";
+    }else{
+      cout << weight1 << " " << basic1 << "\n";
     }
-    if ((i - usage) > t) {
-      basicAfter += (i - usage) / 2;
-    }
-  }
 
-  if (i0 > 0) {
-    cout << weight << " " << basic << endl;
-    if (basicAfter > i0) {
-      cout << "YOYO" << endl;
-    } else {
-      cout << "NO" << endl;
-    }
-  } else {
-    cout << "Danger Diet" << endl;
-  }
-
-  return 0;
+  if (weight2<=0 || basic2 <=0) {
+    cout << "Danger Diet";
+    }else{
+      cout << weight2 << " " << basic2;
+      if(basic2<i0){
+        cout<< " YOYO";
+        }else{
+        cout << " NO";
+        }
+}
 }
